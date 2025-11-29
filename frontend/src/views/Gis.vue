@@ -3,29 +3,39 @@
     <!-- 顶部工具栏 -->
     <div class="gis-header">
       <div class="header-left">
-        <h2>GIS 旅游记录系统</h2>
+        <h2>GIS 旅游记录系</h2>
       </div>
       <div class="header-right">
         <el-button-group>
           <el-button :type="activeTool === 'select' ? 'primary' : ''" @click="setActiveTool('select')">
-            <el-icon><Pointer /></el-icon>
+            <el-icon>
+              <Pointer />
+            </el-icon>
             选择
           </el-button>
           <el-button :type="activeTool === 'marker' ? 'primary' : ''" @click="setActiveTool('marker')">
-            <el-icon><Location /></el-icon>
+            <el-icon>
+              <Location />
+            </el-icon>
             标记
           </el-button>
           <el-button :type="activeTool === 'route' ? 'primary' : ''" @click="setActiveTool('route')">
-            <el-icon><Guide /></el-icon>
+            <el-icon>
+              <Guide />
+            </el-icon>
             路线
           </el-button>
           <el-button :type="activeTool === 'search' ? 'primary' : ''" @click="showSearchDialog = true">
-            <el-icon><Search /></el-icon>
+            <el-icon>
+              <Search />
+            </el-icon>
             搜索
           </el-button>
         </el-button-group>
         <el-button @click="showStats = !showStats">
-          <el-icon><DataAnalysis /></el-icon>
+          <el-icon>
+            <DataAnalysis />
+          </el-icon>
           统计
         </el-button>
       </div>
@@ -37,16 +47,21 @@
         <div class="sidebar-header">
           <h3>功能面板</h3>
           <el-button text @click="sidebarCollapsed = !sidebarCollapsed">
-            <el-icon><DArrowLeft v-if="!sidebarCollapsed" /><DArrowRight v-else /></el-icon>
+            <el-icon>
+              <DArrowLeft v-if="!sidebarCollapsed" />
+              <DArrowRight v-else />
+            </el-icon>
           </el-button>
         </div>
-        
+
         <el-tabs v-model="activeTab" class="sidebar-tabs">
           <!-- 旅游记录 -->
           <el-tab-pane label="旅游记录" name="travel">
             <div class="tab-content">
               <el-button type="primary" style="width: 100%; margin-bottom: 10px;" @click="showTravelDialog = true">
-                <el-icon><Plus /></el-icon>
+                <el-icon>
+                  <Plus />
+                </el-icon>
                 添加记录
               </el-button>
               <el-scrollbar height="400px">
@@ -59,7 +74,9 @@
                     <div class="record-header">
                       <h4>{{ record.title }}</h4>
                       <el-dropdown @command="(cmd: string) => handleRecordCommand(cmd, record.id)">
-                        <el-icon class="more-icon"><MoreFilled /></el-icon>
+                        <el-icon class="more-icon">
+                          <MoreFilled />
+                        </el-icon>
                         <template #dropdown>
                           <el-dropdown-menu>
                             <el-dropdown-item command="edit">编辑</el-dropdown-item>
@@ -83,7 +100,9 @@
           <el-tab-pane label="笔记" name="notes">
             <div class="tab-content">
               <el-button type="primary" style="width: 100%; margin-bottom: 10px;" @click="showNoteDialog = true">
-                <el-icon><Plus /></el-icon>
+                <el-icon>
+                  <Plus />
+                </el-icon>
                 添加笔记
               </el-button>
               <el-scrollbar height="400px">
@@ -95,7 +114,9 @@
                     <div class="note-header">
                       <h4>{{ note.title }}</h4>
                       <el-dropdown @command="(cmd: string) => handleNoteCommand(cmd, note.id)">
-                        <el-icon class="more-icon"><MoreFilled /></el-icon>
+                        <el-icon class="more-icon">
+                          <MoreFilled />
+                        </el-icon>
                         <template #dropdown>
                           <el-dropdown-menu>
                             <el-dropdown-item command="edit">编辑</el-dropdown-item>
@@ -116,7 +137,9 @@
           <el-tab-pane label="路线" name="routes">
             <div class="tab-content">
               <el-button type="primary" style="width: 100%; margin-bottom: 10px;" @click="showRouteDialog = true">
-                <el-icon><Plus /></el-icon>
+                <el-icon>
+                  <Plus />
+                </el-icon>
                 创建路线
               </el-button>
               <el-scrollbar height="400px">
@@ -128,7 +151,9 @@
                     <div class="route-header">
                       <h4>{{ route.name }}</h4>
                       <el-dropdown @command="(cmd: string) => handleRouteCommand(cmd, route.id)">
-                        <el-icon class="more-icon"><MoreFilled /></el-icon>
+                        <el-icon class="more-icon">
+                          <MoreFilled />
+                        </el-icon>
                         <template #dropdown>
                           <el-dropdown-menu>
                             <el-dropdown-item command="view">查看</el-dropdown-item>
@@ -149,17 +174,12 @@
           <!-- 照片 -->
           <el-tab-pane label="照片" name="photos">
             <div class="tab-content">
-              <el-upload
-                class="photo-upload"
-                action="#"
-                :auto-upload="false"
-                :on-change="handlePhotoChange"
-                :show-file-list="false"
-                accept="image/*"
-                multiple
-              >
+              <el-upload class="photo-upload" action="#" :auto-upload="false" :on-change="handlePhotoChange"
+                :show-file-list="false" accept="image/*" multiple>
                 <el-button type="primary" style="width: 100%;">
-                  <el-icon><Upload /></el-icon>
+                  <el-icon>
+                    <Upload />
+                  </el-icon>
                   上传照片
                 </el-button>
               </el-upload>
@@ -169,16 +189,14 @@
                 </div>
                 <div class="photo-grid">
                   <div v-for="(photo, index) in photos" :key="index" class="photo-item">
-                    <el-image
-                      :src="photo.url"
-                      :preview-src-list="photos.map(p => p.url)"
-                      fit="cover"
-                      class="photo-image"
-                    />
+                    <el-image :src="photo.url" :preview-src-list="photos.map(p => p.url)" fit="cover"
+                      class="photo-image" />
                     <div class="photo-info">
                       <p>{{ photo.name }}</p>
                       <el-button size="small" text type="danger" @click="removePhoto(index)">
-                        <el-icon><Delete /></el-icon>
+                        <el-icon>
+                          <Delete />
+                        </el-icon>
                       </el-button>
                     </div>
                   </div>
@@ -192,14 +210,9 @@
       <!-- 地图区域 -->
       <div class="gis-map">
         <div id="map-container" ref="mapContainer"></div>
-        
+
         <!-- 统计面板 -->
-        <el-drawer
-          v-model="showStats"
-          title="旅游统计"
-          direction="rtl"
-          size="400px"
-        >
+        <el-drawer v-model="showStats" title="旅游统计" direction="rtl" size="400px">
           <div class="stats-content">
             <el-card shadow="never" style="margin-bottom: 20px;">
               <template #header>
@@ -218,7 +231,7 @@
                 <strong>{{ gisStore.routes.length }}</strong>
               </div>
             </el-card>
-            
+
             <el-card shadow="never">
               <template #header>
                 <span>旅游地点分布</span>
@@ -231,33 +244,17 @@
     </div>
 
     <!-- 旅游记录对话框 -->
-    <el-dialog
-      v-model="showTravelDialog"
-      title="添加旅游记录"
-      width="600px"
-      @close="resetTravelForm"
-    >
+    <el-dialog v-model="showTravelDialog" title="添加旅游记录" width="600px" @close="resetTravelForm">
       <el-form :model="travelForm" label-width="80px">
         <el-form-item label="标题" required>
           <el-input v-model="travelForm.title" placeholder="请输入标题" />
         </el-form-item>
         <el-form-item label="描述">
-          <el-input
-            v-model="travelForm.description"
-            type="textarea"
-            :rows="4"
-            placeholder="请输入描述"
-          />
+          <el-input v-model="travelForm.description" type="textarea" :rows="4" placeholder="请输入描述" />
         </el-form-item>
         <el-form-item label="日期">
-          <el-date-picker
-            v-model="travelForm.date"
-            type="date"
-            placeholder="选择日期"
-            style="width: 100%;"
-            format="YYYY-MM-DD"
-            value-format="YYYY-MM-DD"
-          />
+          <el-date-picker v-model="travelForm.date" type="date" placeholder="选择日期" style="width: 100%;"
+            format="YYYY-MM-DD" value-format="YYYY-MM-DD" />
         </el-form-item>
         <el-form-item label="评分">
           <el-rate v-model="travelForm.rating" />
@@ -265,8 +262,7 @@
         <el-form-item label="位置">
           <el-input
             :value="`经度: ${travelForm.location.longitude.toFixed(6)}, 纬度: ${travelForm.location.latitude.toFixed(6)}`"
-            disabled
-          />
+            disabled />
           <el-button style="margin-top: 10px;" @click="selectLocationOnMap('travel')">
             在地图上选择位置
           </el-button>
@@ -279,33 +275,17 @@
     </el-dialog>
 
     <!-- 笔记对话框 -->
-    <el-dialog
-      v-model="showNoteDialog"
-      title="添加笔记"
-      width="600px"
-      @close="resetNoteForm"
-    >
+    <el-dialog v-model="showNoteDialog" title="添加笔记" width="600px" @close="resetNoteForm">
       <el-form :model="noteForm" label-width="80px">
         <el-form-item label="标题" required>
           <el-input v-model="noteForm.title" placeholder="请输入标题" />
         </el-form-item>
         <el-form-item label="内容">
-          <el-input
-            v-model="noteForm.content"
-            type="textarea"
-            :rows="6"
-            placeholder="请输入笔记内容"
-          />
+          <el-input v-model="noteForm.content" type="textarea" :rows="6" placeholder="请输入笔记内容" />
         </el-form-item>
         <el-form-item label="日期">
-          <el-date-picker
-            v-model="noteForm.date"
-            type="date"
-            placeholder="选择日期"
-            style="width: 100%;"
-            format="YYYY-MM-DD"
-            value-format="YYYY-MM-DD"
-          />
+          <el-date-picker v-model="noteForm.date" type="date" placeholder="选择日期" style="width: 100%;"
+            format="YYYY-MM-DD" value-format="YYYY-MM-DD" />
         </el-form-item>
         <el-form-item label="颜色">
           <el-color-picker v-model="noteForm.color" />
@@ -313,8 +293,7 @@
         <el-form-item label="位置">
           <el-input
             :value="`经度: ${noteForm.location.longitude.toFixed(6)}, 纬度: ${noteForm.location.latitude.toFixed(6)}`"
-            disabled
-          />
+            disabled />
           <el-button style="margin-top: 10px;" @click="selectLocationOnMap('note')">
             在地图上选择位置
           </el-button>
@@ -327,23 +306,13 @@
     </el-dialog>
 
     <!-- 路线对话框 -->
-    <el-dialog
-      v-model="showRouteDialog"
-      title="创建路线"
-      width="600px"
-      @close="resetRouteForm"
-    >
+    <el-dialog v-model="showRouteDialog" title="创建路线" width="600px" @close="resetRouteForm">
       <el-form :model="routeForm" label-width="80px">
         <el-form-item label="名称" required>
           <el-input v-model="routeForm.name" placeholder="请输入路线名称" />
         </el-form-item>
         <el-form-item label="描述">
-          <el-input
-            v-model="routeForm.description"
-            type="textarea"
-            :rows="3"
-            placeholder="请输入描述"
-          />
+          <el-input v-model="routeForm.description" type="textarea" :rows="3" placeholder="请输入描述" />
         </el-form-item>
         <el-form-item label="颜色">
           <el-color-picker v-model="routeForm.color" />
@@ -363,23 +332,15 @@
 
     <!-- 搜索对话框 -->
     <el-dialog v-model="showSearchDialog" title="搜索地点" width="500px">
-      <el-input
-        v-model="searchKeyword"
-        placeholder="请输入地点名称"
-        @keyup.enter="searchLocation"
-      >
+      <el-input v-model="searchKeyword" placeholder="请输入地点名称" @keyup.enter="searchLocation">
         <template #append>
           <el-button @click="searchLocation">搜索</el-button>
         </template>
       </el-input>
       <div v-if="searchResults.length > 0" style="margin-top: 20px;">
         <el-scrollbar height="300px">
-          <div
-            v-for="(result, index) in searchResults"
-            :key="index"
-            class="search-result-item"
-            @click="goToSearchResult(result)"
-          >
+          <div v-for="(result, index) in searchResults" :key="index" class="search-result-item"
+            @click="goToSearchResult(result)">
             <h4>{{ result.name }}</h4>
             <p>{{ result.address }}</p>
           </div>
@@ -502,7 +463,7 @@ const initMap = () => {
     style: (feature) => {
       const type = feature.get('type');
       const color = feature.get('color') || '#409EFF';
-      
+
       if (type === 'travel') {
         return new Style({
           image: new Icon({
@@ -572,10 +533,10 @@ const initMap = () => {
         zoom: 4.5 // 缩放级别，显示整个中国
       })
     });
-    
+
     console.log('地图创建成功', map);
     console.log('地图容器尺寸:', mapContainer.value?.offsetWidth, mapContainer.value?.offsetHeight);
-    
+
     // 确保地图更新大小
     setTimeout(() => {
       if (map) {
@@ -856,7 +817,7 @@ const startRouteDrawing = () => {
   activeTool.value = 'route';
   routeForm.value.points = [];
   ElMessage.info('请在地图上点击添加路线点，完成后点击保存');
-  
+
   if (map) {
     const clickHandler = (event: any) => {
       if (isDrawingRoute.value && activeTool.value === 'route') {
@@ -869,7 +830,7 @@ const startRouteDrawing = () => {
         ElMessage.success(`已添加第 ${routeForm.value.points.length} 个点`);
       }
     };
-    
+
     map.once('click', clickHandler);
   }
 };
@@ -894,7 +855,7 @@ const searchLocation = () => {
     ElMessage.warning('请输入搜索关键词');
     return;
   }
-  
+
   // 这里可以集成真实的地图搜索API，目前使用模拟数据
   ElMessage.info('搜索功能需要集成地图API（如高德、百度等）');
   searchResults.value = [
@@ -982,7 +943,8 @@ watch(showStats, (val) => {
   flex: 1;
   display: flex;
   overflow: hidden;
-  height: calc(100vh - 60px); /* 减去header高度 */
+  height: calc(100vh - 60px);
+  /* 减去header高度 */
   min-height: 0;
 }
 
@@ -1045,13 +1007,13 @@ watch(showStats, (val) => {
     background-color: #e8e8e8;
     flex: 1;
   }
-  
+
   /* 确保OpenLayers地图容器有正确的样式 */
   :deep(.ol-viewport) {
     width: 100% !important;
     height: 100% !important;
   }
-  
+
   :deep(.ol-overlaycontainer-stopevent) {
     width: 100%;
     height: 100%;
@@ -1069,10 +1031,14 @@ watch(showStats, (val) => {
   }
 }
 
-.record-item, .note-item, .route-item {
+.record-item,
+.note-item,
+.route-item {
   margin-bottom: 10px;
 
-  .record-header, .note-header, .route-header {
+  .record-header,
+  .note-header,
+  .route-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1090,7 +1056,9 @@ watch(showStats, (val) => {
     }
   }
 
-  .record-desc, .note-content, .route-desc {
+  .record-desc,
+  .note-content,
+  .route-desc {
     font-size: 12px;
     color: #666;
     margin: 8px 0;
@@ -1173,4 +1141,3 @@ watch(showStats, (val) => {
   }
 }
 </style>
-
