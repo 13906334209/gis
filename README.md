@@ -1,10 +1,10 @@
-# GIS 应用项目
+# GIS Application Project
 
-全栈GIS应用项目，包含前端和后端。
+Full-stack GIS application project with frontend and backend.
 
-## 技术栈
+## Tech Stack
 
-### 前端
+### Frontend
 - Vue 3
 - TypeScript
 - Element Plus
@@ -14,28 +14,28 @@
 - ECharts
 - Cesium
 
-### 后端
+### Backend
 - Python FastAPI
 - Uvicorn
 
-## 项目结构
+## Project Structure
 
 ```
 gis/
-├── frontend/          # 前端项目
-│   ├── src/          # 源代码
-│   ├── public/       # 静态资源
-│   ├── dist/         # 构建输出
-│   └── package.json  # 前端依赖
-├── backend/          # 后端项目
-│   ├── app/         # 应用代码
-│   └── main.py      # 入口文件
-└── README.md        # 项目说明
+├── frontend/          # Frontend project
+│   ├── src/          # Source code
+│   ├── public/       # Static assets
+│   ├── dist/         # Build output
+│   └── package.json  # Frontend dependencies
+├── backend/          # Backend project
+│   ├── app/         # Application code
+│   └── main.py      # Entry point
+└── README.md        # Project documentation
 ```
 
-## 快速开始
+## Quick Start
 
-### 前端开发
+### Frontend Development
 
 ```bash
 cd frontend
@@ -43,9 +43,9 @@ npm install
 npm run dev
 ```
 
-前端服务将运行在 http://localhost:8080
+Frontend service will run on http://localhost:8080
 
-### 后端开发
+### Backend Development
 
 ```bash
 cd backend
@@ -53,13 +53,22 @@ pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-后端API将运行在 http://localhost:8000
+Backend API will run on http://localhost:8000
 
-API文档访问：http://localhost:8000/docs
+API documentation: http://localhost:8000/docs
 
-## 开发说明
+## Development Notes
 
-- 前端使用Webpack进行打包，支持热更新
-- 后端使用FastAPI，支持自动API文档生成
-- 前后端通过CORS进行跨域通信
+- Frontend uses Webpack for bundling with hot module replacement
+- Backend uses FastAPI with automatic API documentation generation
+- Frontend and backend communicate via CORS for cross-origin requests
+
+## Features
+
+- User authentication system (Admin/Regular user)
+- GIS travel records and notes management
+- OpenLayers map integration
+- Backend map tile proxy service (supports Gaode, OpenStreetMap, Tianditu)
+- Travel route drawing
+- Data statistics and visualization
 

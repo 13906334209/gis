@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// API基础配置
+// API base configuration
 const apiClient = axios.create({
   baseURL: 'http://localhost:8000',
   timeout: 10000,
@@ -9,10 +9,10 @@ const apiClient = axios.create({
   }
 });
 
-// 请求拦截器
+// Request interceptor
 apiClient.interceptors.request.use(
   (config) => {
-    // 可以在这里添加token等
+    // Can add token here, etc.
     return config;
   },
   (error) => {
@@ -20,7 +20,7 @@ apiClient.interceptors.request.use(
   }
 );
 
-// 响应拦截器
+// Response interceptor
 apiClient.interceptors.response.use(
   (response) => {
     return response.data;

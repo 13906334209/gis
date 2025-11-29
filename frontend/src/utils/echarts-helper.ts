@@ -1,11 +1,11 @@
 import * as echarts from 'echarts';
 
 /**
- * ECharts 辅助工具类
+ * ECharts helper utility class
  */
 export class EChartsHelper {
   /**
-   * 创建ECharts实例
+   * Create an ECharts instance
    */
   static createChart(container: string | HTMLElement, theme?: string): echarts.ECharts {
     const element = typeof container === 'string' 
@@ -20,12 +20,12 @@ export class EChartsHelper {
   }
 
   /**
-   * 创建基础柱状图配置
+   * Create a basic bar chart configuration
    */
   static createBarOption(data: any[]): echarts.EChartsOption {
     return {
       title: {
-        text: '示例图表'
+        text: 'Sample Chart'
       },
       tooltip: {},
       xAxis: {
@@ -33,7 +33,7 @@ export class EChartsHelper {
       },
       yAxis: {},
       series: [{
-        name: '数值',
+        name: 'Value',
         type: 'bar',
         data: data.map(item => item.value)
       }]

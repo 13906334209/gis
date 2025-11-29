@@ -1,7 +1,7 @@
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    """应用配置"""
+    """Application configuration"""
     app_name: str = "GIS Backend API"
     debug: bool = False
     api_v1_prefix: str = "/api/v1"

@@ -374,7 +374,7 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 
 const gisStore = useGisStore();
 
-// 地图相关
+// Map related
 const mapContainer = ref<HTMLElement>();
 let map: Map | null = null;
 let vectorLayer: VectorLayer<VectorSource> | null = null;
@@ -383,19 +383,19 @@ const activeTool = ref('select');
 const sidebarCollapsed = ref(false);
 const activeTab = ref('travel');
 
-// 对话框状态
+// Dialog states
 const showTravelDialog = ref(false);
 const showNoteDialog = ref(false);
 const showRouteDialog = ref(false);
 const showSearchDialog = ref(false);
 const showStats = ref(false);
 
-// 表单数据
+// Form data
 const travelForm = ref({
   title: '',
   description: '',
   date: new Date().toISOString().split('T')[0],
-  location: { longitude: 116.3974, latitude: 39.9093 }, // 默认北京
+  location: { longitude: 116.3974, latitude: 39.9093 }, // Default to Beijing
   rating: 0
 });
 
@@ -414,29 +414,29 @@ const routeForm = ref({
   points: [] as Array<{ longitude: number; latitude: number; order: number }>
 });
 
-// 照片管理
+// Photo management
 const photos = ref<Array<{ name: string; url: string }>>([]);
 
-// 搜索
+// Search
 const searchKeyword = ref('');
 const searchResults = ref<Array<{ name: string; address: string; location: { longitude: number; latitude: number } }>>([]);
 
-// 当前编辑的记录ID
+// Currently editing record IDs
 const editingRecordId = ref<string | null>(null);
 const editingNoteId = ref<string | null>(null);
 const editingRouteId = ref<string | null>(null);
 const isDrawingRoute = ref(false);
 
-// 初始化地图
+// Initialize map
 onMounted(() => {
-  // 延迟初始化，确保DOM完全渲染
+  // Delay initialization to ensure DOM is fully rendered
   setTimeout(() => {
     if (mapContainer.value) {
-      console.log('初始化地图，容器:', mapContainer.value);
+      console.log('Initializing map, container:', mapContainer.value);
       initMap();
       loadMapData();
     } else {
-      console.error('地图容器未找到');
+      console.error('Map container not found');
     }
   }, 100);
 });
@@ -450,13 +450,13 @@ onUnmounted(() => {
 
 const initMap = () => {
   if (!mapContainer.value) {
-    console.error('地图容器不存在');
+    console.error('Map container does not exist');
     return;
   }
 
-  console.log('开始创建地图...');
+  console.log('Starting map creation...');
 
-  // 创建矢量图层
+  // Create vector layer
   vectorSource = new VectorSource();
   vectorLayer = new VectorLayer({
     source: vectorSource,
@@ -499,10 +499,10 @@ const initMap = () => {
     }
   });
 
-  // 创建地图
+  // Create map
   try {
-    // 使用后端代理的高德地图服务
-    // 高德地图在国内可以正常访问，通过后端代理解决CORS问题
+    // Use backend-proxied Gaode Map service
+    // Gaode Map is accessible in China, backend proxy solves CORS issues
     const mapLayer = new TileLayer({
       source: new XYZ({
         url: 'http://localhost:8000/api/v1/map/tiles/{z}/{x}/{y}?map_type=gaode',
@@ -517,9 +517,9 @@ const initMap = () => {
       visible: true
     });
 
-    // 监听瓦片加载错误
+    // Listen for tile load errors
     mapLayer.getSource()?.on('tileloaderror', (event) => {
-      console.warn('地图瓦片加载失败:', event);
+      console.warn('Map tile loading failed:', event);
     });
 
     map = new Map({
@@ -529,29 +529,29 @@ const initMap = () => {
         vectorLayer
       ],
       view: new View({
-        center: fromLonLat([104.0, 35.0]), // 中国中心位置
-        zoom: 4.5 // 缩放级别，显示整个中国
+        center: fromLonLat([104.0, 35.0]), // Center of China
+        zoom: 4.5 // Zoom level to show entire China
       })
     });
 
-    console.log('地图创建成功', map);
-    console.log('地图容器尺寸:', mapContainer.value?.offsetWidth, mapContainer.value?.offsetHeight);
-
-    // 确保地图更新大小
+    console.log('Map created successfully', map);
+    console.log('Map container size:', mapContainer.value?.offsetWidth, mapContainer.value?.offsetHeight);
+    
+    // Ensure map size is updated
     setTimeout(() => {
       if (map) {
         map.updateSize();
-        console.log('地图大小已更新，当前尺寸:', map.getSize());
-        console.log('地图视图中心:', map.getView().getCenter());
-        console.log('地图缩放级别:', map.getView().getZoom());
+        console.log('Map size updated, current size:', map.getSize());
+        console.log('Map view center:', map.getView().getCenter());
+        console.log('Map zoom level:', map.getView().getZoom());
       }
     }, 300);
   } catch (error) {
-    console.error('地图创建失败:', error);
+    console.error('Map creation failed:', error);
     ElMessage.error('地图初始化失败，请检查网络连接');
   }
 
-  // 地图点击事件
+  // Map click event
   if (map) {
     map.on('click', (event) => {
       if (activeTool.value === 'marker') {
@@ -572,7 +572,7 @@ const initMap = () => {
 const loadMapData = () => {
   if (!vectorSource || !map) return;
 
-  // 加载旅游记录
+  // Load travel records
   gisStore.travelRecords.forEach(record => {
     const feature = new Feature({
       geometry: new Point(fromLonLat([record.location.longitude, record.location.latitude])),
@@ -585,7 +585,7 @@ const loadMapData = () => {
     }
   });
 
-  // 加载笔记
+  // Load notes
   gisStore.notes.forEach(note => {
     const feature = new Feature({
       geometry: new Point(fromLonLat([note.location.longitude, note.location.latitude])),
@@ -599,9 +599,9 @@ const loadMapData = () => {
     }
   });
 
-  // 加载路线
+  // Load routes
   gisStore.routes.forEach(route => {
-    // 这里可以添加路线绘制逻辑
+    // Can add route drawing logic here
   });
 };
 
@@ -856,8 +856,8 @@ const searchLocation = () => {
     return;
   }
 
-  // 这里可以集成真实的地图搜索API，目前使用模拟数据
-  ElMessage.info('搜索功能需要集成地图API（如高德、百度等）');
+  // Can integrate real map search API here, currently using mock data
+  ElMessage.info('Search function needs to integrate map API (such as Gaode, Baidu, etc.)');
   searchResults.value = [
     {
       name: searchKeyword.value + ' (示例)',
@@ -876,7 +876,7 @@ const formatDate = (date: string) => {
   return date.split('T')[0];
 };
 
-// 初始化统计图表
+// Initialize statistics chart
 const initStatsChart = () => {
   nextTick(() => {
     const chartElement = document.getElementById('stats-chart');
@@ -900,7 +900,7 @@ const initStatsChart = () => {
   });
 };
 
-// 监听统计面板显示
+// Watch statistics panel display
 watch(showStats, (val) => {
   if (val) {
     initStatsChart();

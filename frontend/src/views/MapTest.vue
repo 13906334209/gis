@@ -28,8 +28,8 @@ const testMapContainer = ref<HTMLElement>();
 onMounted(() => {
   setTimeout(() => {
     if (testMapContainer.value) {
-      console.log('测试地图容器:', testMapContainer.value);
-      console.log('容器尺寸:', testMapContainer.value.offsetWidth, 'x', testMapContainer.value.offsetHeight);
+      console.log('Test map container:', testMapContainer.value);
+      console.log('Container size:', testMapContainer.value.offsetWidth, 'x', testMapContainer.value.offsetHeight);
       
       try {
         // 使用后端代理的高德地图服务
@@ -55,17 +55,17 @@ onMounted(() => {
           })
         });
         
-        console.log('测试地图创建成功（使用后端代理的高德地图）:', map);
+        console.log('Test map created successfully (using backend-proxied Gaode Map):', map);
         
         setTimeout(() => {
           map.updateSize();
-          console.log('测试地图大小已更新');
+          console.log('Test map size updated');
         }, 200);
       } catch (error) {
-        console.error('测试地图创建失败:', error);
+        console.error('Test map creation failed:', error);
       }
     } else {
-      console.error('测试地图容器未找到');
+      console.error('Test map container not found');
     }
   }, 100);
 });

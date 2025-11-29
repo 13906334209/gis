@@ -1,14 +1,14 @@
 import * as Cesium from 'cesium';
 
 /**
- * Cesium 辅助工具类
+ * Cesium helper utility class
  */
 export class CesiumHelper {
   /**
-   * 创建Cesium Viewer
+   * Create a Cesium Viewer
    */
   static async createViewer(container: string | HTMLElement): Promise<Cesium.Viewer> {
-    Cesium.Ion.defaultAccessToken = ''; // 需要设置Cesium Ion访问令牌
+    Cesium.Ion.defaultAccessToken = ''; // Need to set Cesium Ion access token
     
     const element = typeof container === 'string' 
       ? document.getElementById(container) || document.querySelector(container) as HTMLElement

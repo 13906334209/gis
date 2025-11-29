@@ -3,17 +3,17 @@ import type { TravelRecord, Note, TravelRoute } from '@/types';
 
 export const useAppStore = defineStore('app', {
   state: () => ({
-    // 应用状态
+    // Application state
   }),
   getters: {
-    // 计算属性
+    // Computed properties
   },
   actions: {
-    // 方法
+    // Methods
   }
 });
 
-// GIS数据管理 Store
+// GIS Data Management Store
 export const useGisStore = defineStore('gis', {
   state: () => {
     const savedTravelRecords = localStorage.getItem('gis-travel-records');
@@ -38,7 +38,7 @@ export const useGisStore = defineStore('gis', {
     }
   },
   actions: {
-    // 旅游记录操作
+    // Travel record operations
     addTravelRecord(record: Omit<TravelRecord, 'id' | 'createdAt' | 'updatedAt'>) {
       const newRecord: TravelRecord = {
         ...record,
@@ -66,7 +66,7 @@ export const useGisStore = defineStore('gis', {
       this.saveTravelRecords();
     },
     
-    // 笔记操作
+    // Note operations
     addNote(note: Omit<Note, 'id' | 'createdAt' | 'updatedAt'>) {
       const newNote: Note = {
         ...note,
@@ -94,7 +94,7 @@ export const useGisStore = defineStore('gis', {
       this.saveNotes();
     },
     
-    // 路线操作
+    // Route operations
     addRoute(route: Omit<TravelRoute, 'id' | 'createdAt' | 'updatedAt'>) {
       const newRoute: TravelRoute = {
         ...route,
@@ -122,7 +122,7 @@ export const useGisStore = defineStore('gis', {
       this.saveRoutes();
     },
     
-    // 保存到localStorage
+    // Save to localStorage
     saveTravelRecords() {
       localStorage.setItem('gis-travel-records', JSON.stringify(this.travelRecords));
     },
@@ -135,10 +135,10 @@ export const useGisStore = defineStore('gis', {
   }
 });
 
-// 用户认证 Store
+// User Authentication Store
 export const useAuthStore = defineStore('auth', {
   state: () => {
-    // 从 localStorage 恢复状态
+    // Restore state from localStorage
     const savedUser = localStorage.getItem('auth-user');
     const savedAuth = localStorage.getItem('auth-isAuthenticated');
     
@@ -154,7 +154,7 @@ export const useAuthStore = defineStore('auth', {
   },
   actions: {
     login(username: string, password: string): boolean {
-      // 管理员账户
+      // Admin account
       if (username === 'admin' && password === '123456') {
         this.user = { username: 'admin', role: 'admin' };
         this.isAuthenticated = true;
@@ -163,7 +163,7 @@ export const useAuthStore = defineStore('auth', {
         return true;
       }
       
-      // 使用者账户
+      // Regular user account
       if (username === 'gis123' && password === '123456') {
         this.user = { username: 'gis123', role: 'user' };
         this.isAuthenticated = true;
